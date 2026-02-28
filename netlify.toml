@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist/untitled/browser"
+
+[functions]
+  node_bundler = "esbuild"
+  # Ensures the server code is shipped to the function
+
+[[plugins]]
+  package = "@netlify/angular-runtime"
