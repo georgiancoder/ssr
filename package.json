@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:untitled": "node dist/untitled/server/server.mjs"
+    "serve:ssr:untitled": "node dist/untitled/server/server.mjs",
+    "nelify": "netlify dev"
   },
   "private": true,
   "packageManager": "npm@10.9.0",
