@@ -4,7 +4,7 @@
 
 [functions]
   node_bundler = "esbuild"
-  # Ensures the server code is shipped to the function
+  external_node_modules = ["firebase-admin"]
 
 [[plugins]]
   package = "@netlify/angular-runtime"
