@@ -13,13 +13,12 @@ import { CommonModule } from '@angular/common';
 
       <div class="posts-section">
         <h2>Recent Posts</h2>
-        <div *ngIf="loading()" class="loading">Loading posts...</div>
-        <div *ngIf="error" class="error">{{ error }}</div>
-        <div *ngFor="let post of posts()" class="post-card">
-          <h3>{{ post.title }}</h3>
-          <p>{{ post.content }}</p>
-          <small>{{ post.date | date }}</small>
-        </div>
+        @for (post of posts(); track post.id) {
+          <div class="post-card" key={post.id}>
+            <h3>{{post.title}}</h3>
+            <p>{{post.content}}</p>
+          </div>
+        }
       </div>
     </div>
   `,
