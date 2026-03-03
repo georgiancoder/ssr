@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { PostsService } from '../services/posts.service';
 import { CommonModule } from '@angular/common';
 
@@ -13,9 +13,9 @@ import { CommonModule } from '@angular/common';
 
       <div class="posts-section">
         <h2>Recent Posts</h2>
-        <div *ngIf="loading" class="loading">Loading posts...</div>
+        <div *ngIf="loading()" class="loading">Loading posts...</div>
         <div *ngIf="error" class="error">{{ error }}</div>
-        <div *ngFor="let post of posts" class="post-card">
+        <div *ngFor="let post of posts()" class="post-card">
           <h3>{{ post.title }}</h3>
           <p>{{ post.content }}</p>
           <small>{{ post.date | date }}</small>
@@ -55,21 +55,22 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class HomePage implements OnInit {
-  posts: any[] = [];
-  loading = true;
+  posts = signal<any[]>([]);
+  loading = signal(true)
   error: string | null = null;
+
 
   constructor(private postsService: PostsService) {}
 
   ngOnInit() {
     this.postsService.getPosts().subscribe({
       next: (data) => {
-        this.posts = data;
-        this.loading = false;
+        this.posts.set(data)
+        this.loading.set(false);
       },
       error: (err) => {
         this.error = 'Failed to load posts';
-        this.loading = false;
+        this.loading.set(false);
         console.error(err);
       }
     });
